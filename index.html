@@ -60,6 +60,10 @@
             overflow-y: scroll;
             height: 250px;
         }
+
+        .hidden {
+            display: none;
+        }
     </style>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -70,66 +74,49 @@
 <div class="container">
     <div class="row">
         <br><br><br><br>
+
+        <div class="col-md-10 col-md-offset-2" >
+            <div id="homepage">
+                <h1> <span class="glyphicon glyphicon-comment"></span> Simple chat room</h1><br>
+                <div class="col-md-8 col-xs-6">
+                    <input type="text" id="username" placeholder="Username" class="form-control">
+                </div>
+                <div class="col-md-2 col-xs-4">
+                    <button id="submit_name" class="btn btn-info">Sign Here</button>
+                </div>
+            </div>
+        </div>
+
         <div class="col-md-5 col-md-offset-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-comment"></span> Chat
-                </div>
-                <div class="panel-body">
-                    <ul class="chat" id="messages">
-
-                        <!-- <li class="left clearfix"><span class="chat-img pull-left">
-                            <img src="http://placehold.it/50/55C1E7/fff&text=U" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <strong class="primary-font"></strong> <small class="pull-right text-muted">
-                                        <span class="glyphicon glyphicon-time"></span></small>
-                                </div>
-                                <p>
-                            
-                                </p>
-                            </div>
-                        </li>
-
-                        <li class="right clearfix"><span class="chat-img pull-right">
-                            <img src="http://placehold.it/50/FA6F57/fff&text=ME" alt="User Avatar" class="img-circle" />
-                        </span>
-                            <div class="chat-body clearfix">
-                                <div class="header">
-                                    <small class=" text-muted"><span class="glyphicon glyphicon-time"></span></small>
-                                    <strong class="pull-right primary-font"></strong>
-                                </div>
-                                <p>
-                            
-                                </p>
-                            </div>
-                        </li> -->
-
-                    </ul>
-                </div>
-                
-                <div class="panel-footer">
-
-                    <div class="input-group">
-                        <div class="row">
-                            <form action="">
-                                <div class="col-md-10">
-                                    <input id="text_box" type="text" class="form-control input-sm" placeholder="Type your message here...">
-                                </div>
-                                <div class="col-md-2">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success btn-sm" id="btn-chat">
-                                            Send
-                                        </button>
-                                    </span>
-                                </div>
-                            </form>
+            <div id="chatroom" class="hidden">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="glyphicon glyphicon-comment"></span> Chat
+                    </div>
+                    <div class="panel-body">
+                        <ul class="chat" id="messages"></ul>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="input-group">
+                            <div class="row">
+                                <form action="">
+                                    <div class="col-md-10">
+                                        <input id="text_box" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-success btn-sm" id="btn-chat">
+                                                Send
+                                            </button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>   
                         </div>
-                        
                     </div>
                 </div>
             </div>
+           
         </div>
     </div>
 </div>
@@ -151,6 +138,12 @@
         //for display on front
         socket.on('newMessage', function(msg) {
             $('#messages').append(($('<li>').text(msg + ' at: ' + Date())));
+        });
+
+        // input text name -> in chat room
+        $('#submit_name').click(function(){
+            $('#chatroom').removeClass();
+            $('#homepage').addClass('hidden');
         });
     </script>
 </body>
