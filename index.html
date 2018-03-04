@@ -142,8 +142,23 @@
 
         // input text name -> in chat room
         $('#submit_name').click(function(){
-            $('#chatroom').removeClass();
-            $('#homepage').addClass('hidden');
+            // validate username
+            if ($('#username') != '') {
+                // validate exist
+                username = $('#username').val();
+                socket.emit('regiterUser', username);
+
+            }
+        });
+
+        // accept  respon from server while regiter user
+        socket.on('registerRespond', function(status) {
+            if (status == false) {
+                alert('Username is exits, search the other name');
+            } else {
+                $('#chatroom').removeClass();
+                $('#homepage').addClass('hidden');
+            }
         });
     </script>
 </body>
