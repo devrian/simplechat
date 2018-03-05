@@ -15,12 +15,16 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('newMessage', 'User online');
     // when user register
     socket.on('registerUser', function(username) {
-        if (usernames.indexOf(user) != -1) {
+        if (usernames.indexOf(username) != -1) {
             socket.emit('registerRespond', false);
         } else {
-            users[socket.id] = user;
-            usernames.push(user);
-            socket.emit('registerRespond', false);
+            users[socket.id] = username;
+            usernames.push(username);
+            socket.emit('registerRespond', true);
+            console.log(users);
+            console.log('---------');
+            console.log(usernames);
+
         }
     });
     // if add new message
