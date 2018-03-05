@@ -79,7 +79,7 @@
             <div id="homepage">
                 <h1> <span class="glyphicon glyphicon-comment"></span> Simple chat room</h1><br>
                 <div class="col-md-8 col-xs-6">
-                    <input type="text" id="username" placeholder="Username" class="form-control">
+                    <input type="text" id="user_name" placeholder="Username" class="form-control">
                 </div>
                 <div class="col-md-2 col-xs-4">
                     <button id="submit_name" class="btn btn-info">Sign Here</button>
@@ -142,8 +142,22 @@
 
         // input text name -> in chat room
         $('#submit_name').click(function(){
-            $('#chatroom').removeClass();
-            $('#homepage').addClass('hidden');
+            // validate username
+            if ($('#user_name') != '') {
+                // validate exist
+                username = $('#user_name').val();
+                socket.emit('registerUser', username);
+            }
+        });
+
+        // accept  respon from server while regiter user
+        socket.on('registerRespond', function(status) {
+            if (status == false) {
+                alert('Username is exits, search the other name');
+            } else {
+                $('#chatroom').removeClass();
+                $('#homepage').addClass('hidden');
+            }
         });
     </script>
 </body>
